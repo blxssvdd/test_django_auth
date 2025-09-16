@@ -4,7 +4,7 @@ from .models import Contact
 
 
 
-class ContactForm(forms.Form):
+class ContactForm(forms.ModelForm):
     first_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}), label="Ім'я")
     last_name = forms.CharField(max_length=50, widget=forms.TextInput(attrs={'class': 'form-control'}), label="Прізвище")
     email = forms.EmailField(max_length=50, required=False, widget=forms.EmailInput(attrs={'class': 'form-control'}), label="Електронна пошта")
