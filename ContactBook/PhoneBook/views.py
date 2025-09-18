@@ -26,3 +26,5 @@ def get_contacts(request):
     contacts = Contact.objects.filter(user=request.user).all()
     return render(request=request, template_name="contacts.html", context=dict(contacts=contacts))
 
+#update
+

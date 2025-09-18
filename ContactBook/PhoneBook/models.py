@@ -11,3 +11,6 @@ class Contact(models.Model):
     address = models.TextField(null=True, default=None)
     profile_picture = models.ImageField(null=True, blank=True, upload_to="PhoneBook/static/images/")
     user = models.ForeignKey("UserManager.MySuperUser", on_delete=models.CASCADE)
+
+
+    #update
