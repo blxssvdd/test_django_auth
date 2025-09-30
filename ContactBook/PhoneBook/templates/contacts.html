@@ -1,7 +1,16 @@
 {% extends "base.html" %}
-{% load static %}
 
 {% block content %}
+<form action="{% url 'filter_contacts' %}" method="post">
+    {% csrf_token %}
+    <input type="text"placeholder="Ім'я для пошуку" name="first_name" class="form-control text-center">
+    <input type="text"placeholder="Прізвище для пошуку" name="last_name" class="form-control text-center">
+    <input type="text"placeholder="Телефон для пошуку" name="phone_number" class="form-control text-center">
+    <input type="text"placeholder="Email для пошуку" name="email" class="form-control text-center">
+    <input type="text"placeholder="Адреса для пошуку" name="address" class="form-control text-center">
+    <button class="btn btn-warning" type="submit">Фільтрувати</button>
+</form>
+
 <table class="table table-striped table-hover">
     <thead>
         <tr>
@@ -12,6 +21,7 @@
             <th>Електронна пошта</th>
             <th>Адреса</th>
             <th>Аватарочка</th>
+            <th>Дія</th>
 
         </tr>
     </thead>
@@ -24,11 +34,11 @@
             <td>{{ contact.phone_number }}</td>
             <td>{{ contact.email }}</td>
             <td>{{ contact.address }}</td>
-            {% if contact.profile_picture %}
-            <td><img src="{% static '' %}{{ contact.profile_picture.path }}" alt="Ava" width="150px" height="150px"></td>
-            {% else %}
-                <td></td>
-            {% endif %}
+            <td><img src="{{ MEDIA_URL }}{{ contact.profile_picture }}" alt="Ava" width="150px" height="150px"></td>
+            <td>
+                <a href="{% url 'edit_contact' id=contact.id %}" class="btn btn-success">Змінити</a>
+                <a href="{% url 'delete_contact' id=contact.id %}" class="btn btn-danger">Видалити</a>
+            </td>
         </tr>
         {% endfor %}
     </tbody>
