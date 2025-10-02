@@ -36,6 +36,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'PhoneBook',
+    'MeetingPlanner',
     'UserManager',
     'django.contrib.admin',
     'django.contrib.auth',
