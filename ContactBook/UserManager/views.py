@@ -2,13 +2,14 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.http import HttpRequest
 
 from .forms import SignUp, Login
 
 # Create your views here.
 
 
-def sign_up(request):
+def sign_up(request: HttpRequest):
     if request.user.is_authenticated:
          return redirect("index")
 
@@ -22,7 +23,7 @@ def sign_up(request):
 
 
 
-def sign_in(request):
+def sign_in(request: HttpRequest):
     if request.user.is_authenticated:
          return redirect("index")
 
@@ -47,7 +48,7 @@ def index(request):
     return render(request=request, template_name="index.html")
 
 
-@login_required(login_url="/sign_in/")
+@login_required(login_url="/logout/")
 def logout_func(request):
     # if request.method == "POST":
         logout(request)
