@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate, logout
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib import messages
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponseForbidden
 
+from .models import MySuperUser
 from .forms import SignUp, Login
 
 # Create your views here.
@@ -54,3 +55,12 @@ def logout_func(request):
         logout(request)
         messages.success(request,"Ви успішно вийшли з системи.")
         return redirect("sign_in")
+
+
+def get_users(request: HttpRequest):
+     if not request.user.is_staff:
+          return HttpResponseForbidden()
+     
+     users = MySuperUser.objects.all()
+     return render(request, "users.html", dict(users=users))
+     
